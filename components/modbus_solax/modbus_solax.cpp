@@ -227,13 +227,13 @@ void ModbusSolax::send(SolaxMessageT *tx_message) {
   ESP_LOGVV(TAG, "TX -> %s", format_hex_pretty((const uint8_t *) tx_message, msg_len).c_str());
 
   if (this->flow_control_pin_ != nullptr)
-    this->flow_control_pin_->digital_write(true);
+    this->flow_control_pin_->digital_write(false);
 
   this->write_array((const uint8_t *) tx_message, msg_len);
   this->flush();
 
   if (this->flow_control_pin_ != nullptr)
-    this->flow_control_pin_->digital_write(false);
+    this->flow_control_pin_->digital_write(true);
 }
 
 }  // namespace modbus_solax
